@@ -5,13 +5,13 @@ services:
     build: .
     environment:
       - STREAM_URL=${STREAM_URL:-https://broadcastify.cdnstream1.com/45512}
-      - MONGO_URI=mongodb://mongo:27017/police_scanner
-      - WHISPER_MODEL_PATH=/app/models/ggml-base.en.bin
+      - MONGO_URI=${MONGO_URI:-mongodb://host.docker.internal:27017/police_scanner}
+      - WHISPER_MODEL_PATH=/app/models/ggml-medium.en.bin
     volumes:
       - ./logs:/app/logs
       - ./temp_chunks:/app/temp_chunks
-    depends_on:
-      - mongo
+    # depends_on:
+    #   - mongo # Optional if using remote DB
     restart: unless-stopped
 
   mongo:
@@ -20,5 +20,16 @@ services:
       - mongo-data:/data/db
     restart: unless-stopped
 
+  ollama:
+    image: ollama/ollama:latest
+    volumes:
+      - ollama-data:/root/.ollama
+    ports:
+      - "11434:11434"
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
 volumes:
   mongo-data:
+  ollama-data:

@@ -6,7 +6,9 @@ import { config } from '../config/config';
 // Simple Mongoose Schema
 const LogSchema = new mongoose.Schema({
     timestamp: { type: Date, default: Date.now },
-    text: String,
+    text: String, // Cleaned text
+    rawText: String, // Original text
+    tags: [String], // Detected tags
     audioFile: String,
     streamUrl: String
 });
@@ -29,10 +31,10 @@ export class Logger {
         }
     }
 
-    public async log(data: { text: string; audioFile?: string; timestamp?: number }) {
+    public async log(data: { text: string; rawText?: string; tags?: string[]; audioFile?: string; timestamp?: number }) {
         const time = new Date(data.timestamp || Date.now());
         const timestampStr = time.toISOString();
-        const line = `[${timestampStr}] ${data.text}\n`;
+        const line = `[${timestampStr}] ${data.rawText || data.text} ${data.tags ? `[${data.tags.join(',')}]` : ''}\n`;
 
         // 1. File Log
         try {
@@ -47,6 +49,8 @@ export class Logger {
                 await LogModel.create({
                     timestamp: time,
                     text: data.text,
+                    rawText: data.rawText || data.text,
+                    tags: data.tags || [],
                     audioFile: data.audioFile,
                     streamUrl: config.streamUrl
                 });
