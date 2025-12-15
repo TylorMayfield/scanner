@@ -1,0 +1,36 @@
+{
+  "name": "scanner",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "ts-node src/scripts/download-bin.ts && ts-node src/scripts/download-model.ts",
+    "start": "ts-node src/index.ts",
+    "build": "tsc",
+    "download-model": "ts-node src/scripts/download-model.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TylorMayfield/scanner.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/TylorMayfield/scanner/issues"
+  },
+  "homepage": "https://github.com/TylorMayfield/scanner#readme",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "fluent-ffmpeg": "^2.1.3",
+    "mongoose": "^9.0.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@types/fluent-ffmpeg": "^2.1.28",
+    "@types/node": "^25.0.2"
+  }
+}
