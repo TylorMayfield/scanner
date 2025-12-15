@@ -74,14 +74,16 @@ export class Transcriber extends EventEmitter {
             const args = [
                 '-m', config.whisperModelPath,
                 '-f', audioPath,
-                '--no-timers', // Don't print timing info
-                '--output-txt', // To ensure we get text, though standard output often suffices.
+                '--no-timestamps',
+                '-bs', config.whisperBeamSize.toString(),
+                '-bo', config.whisperBestOf.toString(),
+                '--output-txt',
                 // Note: whisper.cpp args might vary by version. 
                 // '-nt' is common shorthand for no timestamps. 
                 // For safety we'll use long form if known, or parse output.
             ];
 
-            // console.log(`Spawning: ${this.binaryPath} ${args.join(' ')}`);
+            console.log(`[Transcriber] Spawning: ${this.binaryPath} ${args.join(' ')}`);
 
             const child = spawn(this.binaryPath, args);
 
@@ -104,8 +106,8 @@ export class Transcriber extends EventEmitter {
                     // Sometimes code 0 is returned but output is in stderr?
                     // whisper.cpp prints info to stderr. Text to stdout.
                     // If stdout is empty but code is 0, maybe silence?
-                    if (stdout.length === 0 && stderr.length > 0) {
-                        // console.log("Whisper Debug:", stderr);
+                    if (stdout.length === 0) {
+                        console.log("[Transcriber Warning] No stdout. Stderr:", stderr);
                     }
                     resolve(this.cleanOutput(stdout));
                 }

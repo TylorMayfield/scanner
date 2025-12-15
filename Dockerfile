@@ -44,7 +44,7 @@ RUN mkdir -p logs temp_chunks
 
 # Environment defaults
 ENV NODE_ENV=production
-ENV WHISPER_MODEL_PATH=/app/models/ggml-base.en.bin
+ENV WHISPER_MODEL_PATH=/app/models/ggml-medium.en.bin
 ENV STREAM_URL=""
 ENV MONGO_URI=""
 

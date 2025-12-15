@@ -3,8 +3,8 @@ import path from 'path';
 import https from 'https';
 
 const modelsDir = path.join(process.cwd(), 'models');
-const modelUrl = 'https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.en.bin';
-const modelPath = path.join(modelsDir, 'ggml-base.en.bin');
+const modelUrl = 'https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-medium.en.bin';
+const modelPath = path.join(modelsDir, 'ggml-medium.en.bin');
 
 if (!fs.existsSync(modelsDir)) {
     fs.mkdirSync(modelsDir, { recursive: true });
