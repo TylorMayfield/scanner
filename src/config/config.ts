@@ -11,7 +11,7 @@ export const config = {
     whisperBeamSize: parseInt(process.env.WHISPER_BEAM_SIZE || '5', 10), // Default 5. Higher = more accurate, slower.
     whisperBestOf: parseInt(process.env.WHISPER_BEST_OF || '5', 10), // Default 5.
     ollamaUrl: process.env.OLLAMA_URL || 'http://ollama:11434',
-    ollamaModel: process.env.OLLAMA_MODEL || 'llama3.2', // Lightweight model
+    ollamaModel: process.env.OLLAMA_MODEL || 'qwen2.5:0.5b', // Very lightweight (0.5B params)
     minDuration: parseInt(process.env.MIN_DURATION || '1', 10), // Minimum duration in seconds to trigger processing
     silenceThreshold: process.env.SILENCE_THRESHOLD || '-30dB', // ffmpeg silence threshold
     silenceDuration: parseFloat(process.env.SILENCE_DURATION || '1.5'), // Duration of silence to mark end of segment

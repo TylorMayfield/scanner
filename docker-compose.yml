@@ -12,6 +12,8 @@ services:
       - ./temp_chunks:/app/temp_chunks
     # depends_on:
     #   - mongo # Optional if using remote DB
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     restart: unless-stopped
 
   mongo:
