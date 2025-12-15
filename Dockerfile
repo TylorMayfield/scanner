@@ -29,7 +29,7 @@ COPY src ./src
 RUN git clone https://github.com/ggerganov/whisper.cpp.git /whisper \
     && cd /whisper \
     && make \
-    && cp main /usr/local/bin/whisper \
+    && cp build/bin/whisper-cli /usr/local/bin/whisper \
     && cd /app \
     && rm -rf /whisper
 

@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  scanner:
+    build: .
+    environment:
+      - STREAM_URL=${STREAM_URL:-https://broadcastify.cdnstream1.com/45512}
+      - MONGO_URI=mongodb://mongo:27017/police_scanner
+      - WHISPER_MODEL_PATH=/app/models/ggml-base.en.bin
+    volumes:
+      - ./logs:/app/logs
+      - ./temp_chunks:/app/temp_chunks
+    depends_on:
+      - mongo
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:6.0
+    volumes:
+      - mongo-data:/data/db
+    restart: unless-stopped
+
+volumes:
+  mongo-data:
